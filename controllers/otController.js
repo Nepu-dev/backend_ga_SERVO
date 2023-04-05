@@ -5,8 +5,11 @@ const obtenerOTs = async (req, res) => {
     res.json(ots);
 };
 const nuevaOT = async (req, res) => {
+    req.body.ot_pictures = req.files.map(file => ({
+        name: file.originalname,
+        url: `./uploads/${file.filename}`
+    }))
     const ot = new OT(req.body);
-
     try {
         const otAlmacenada = await ot.save();
         res.json(otAlmacenada);
@@ -80,17 +83,11 @@ const eliminarOT = async (req, res) => {
         console.log(error);
     }
 };
-const agregarIMG = async (req, res) => {};
-const obtenerIMGS = async (req, res) => {};
-const eliminarIMG = async (req, res) => {};
 
 export {
     obtenerOTs,
     nuevaOT,
     obtenerOT,
     editarOT,
-    eliminarOT,
-    agregarIMG,
-    obtenerIMGS,
-    eliminarIMG
+    eliminarOT
 };

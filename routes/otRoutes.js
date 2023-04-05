@@ -11,8 +11,11 @@ import {
     eliminarIMG
 } from "../controllers/otController.js";
 import checkAuth from "../middleWare/checkAuth.js";
+import upload from "../config/multer.js";
 
 const router = express.Router();
+
+router.use(upload.array('ot_pictures', 20));
 
 router
     .route('/')

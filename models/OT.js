@@ -73,7 +73,8 @@ const OtSchema = mongoose.Schema({
     },
     ot_pictures: [
         {
-            type: Buffer,
+            name: { type: String },
+            url: { type: String }
         }
     ],
     ot_state: {
