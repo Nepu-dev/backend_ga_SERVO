@@ -5,11 +5,16 @@ const obtenerOTs = async (req, res) => {
     res.json(ots);
 };
 const nuevaOT = async (req, res) => {
-    req.body.ot_pictures = req.files.map(file => ({
+    console.log(req.body.ot_pictures);
+    const otPictures = req.body.ot_pictures.map(file => ({
         name: file.originalname,
         url: `./uploads/${file.filename}`
-    }))
-    const ot = new OT(req.body);
+    }));
+    const otData = {
+        ...req.body,
+        ot_pictures: otPictures
+    };
+    const ot = new OT(otData);
     try {
         const otAlmacenada = await ot.save();
         res.json(otAlmacenada);

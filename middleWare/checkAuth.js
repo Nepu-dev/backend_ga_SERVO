@@ -13,7 +13,7 @@ const checkAuth = async (req, res, next) => {
             req.usuario = await User.findById(decoded.id).select("-password -token -createdAt -updatedAt -__v");
             return next();
         } catch (error) {
-            return res.status(404).json({ msg: 'Hubo un error'});
+            return res.status(404).json({ msg: 'Hubo un error de autenticación'});
         }
     }
     if (!token) {
