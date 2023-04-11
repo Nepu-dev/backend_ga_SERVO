@@ -108,8 +108,16 @@ const obtenerFiles = async (req, res) => {
       throw err;
     });
 
+
+    // Ruta al archivo que se agregará al archivo zip
+    const filePath = 'public/uploads/1681156967555-SERVO_software.pdf';
+    
+    // Agregar el archivo al archivo zip
+    zip.file("uploads/1681156967555-SERVO_software.pdf", fs.readFileSync("./public/uploads/1681156967555-SERVO_software.pdf"), { name: "1681156967555-SERVO_software.pdf" });
+    
+
     // Agrega cada archivo de la OT al archivo zip
-    ot.ot_pictures.forEach((picture) => {
+    /* ot.ot_pictures.forEach((picture) => {
       const filePath = picture.url;
       if (fs.existsSync(filePath)) {
         zip.file(filePath, { name: picture.name });
@@ -118,20 +126,22 @@ const obtenerFiles = async (req, res) => {
       } else {
         console.log("La ruta está mala");
       }
-    });
+    }); */
 
     // Envía el archivo zip al cliente
-    console.log(`Sending zip file ${ot.ot_number}.zip with ${zip.pointer()} bytes`);
+    console.log(
+      `Sending zip file ${ot.ot_number}.zip with ${zip.pointer()} bytes`
+    );
     res.attachment(`${ot.ot_number}.zip`);
-        // Log cuando se agrega un archivo al zip
-        zip.on("entry", function (entry) {
-          console.log("Added file to zip:", entry.name);
-        });
-    
-        // Log cuando se termina de construir el zip
-        zip.on("finish", function () {
-          console.log("Zip finished:", zip.pointer() + " total bytes");
-        });
+    // Log cuando se agrega un archivo al zip
+    zip.on("entry", function (entry) {
+      console.log("Added file to zip:", entry.name);
+    });
+
+    // Log cuando se termina de construir el zip
+    zip.on("finish", function () {
+      console.log("Zip finished:", zip.pointer() + " total bytes");
+    });
     zip.pipe(res);
     zip.finalize();
   } catch (error) {
