@@ -6,6 +6,7 @@ import {
     obtenerOT,
     editarOT,
     eliminarOT,
+    obtenerFiles
 } from "../controllers/otController.js";
 import checkAuth from "../middleWare/checkAuth.js";
 import upload from "../config/multer.js";
@@ -15,9 +16,7 @@ const router = express.Router();
 router
     .route('/')
     .get(checkAuth, obtenerOTs)
-    .post(checkAuth, upload.array('ot_pictures'), (req, res) => {
-        console.log(req.files);
-    })
+    .post(checkAuth, upload.array('ot_pictures'), nuevaOT)
 
 router
     .route('/:id')
@@ -25,9 +24,9 @@ router
     .put(checkAuth, editarOT)
     .delete(checkAuth, eliminarOT);
 
-/* router.get('/imgs/:id', checkAuth, obtenerIMGS);
-router.post('/agregar-img/:id', checkAuth, agregarIMG);
-router.post('/eliminar-img/:id', checkAuth, eliminarIMG); */
+router.get('/files/:id', checkAuth, obtenerFiles);
+/* router.post('/agregar-file/:id', checkAuth, agregarIMG);
+router.post('/eliminar-file/:id', checkAuth, eliminarIMG); */
 
 
 
