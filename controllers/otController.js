@@ -1,7 +1,7 @@
 import OT from "../models/OT.js";
 import path from "path";
 import fs from "fs";
-import archiver from "archiver";
+import JSZip from "jszip";
 
 const obtenerOTs = async (req, res) => {
   const ots = await OT.find();
@@ -100,50 +100,21 @@ const obtenerFiles = async (req, res) => {
       return res.status(404).send("OT not found");
     }
 
-    const zip = archiver("zip", {
-      zlib: { level: 9 }, // set compression level
-    });
-
-    zip.on("error", function (err) {
-      throw err;
-    });
-
-
-    // Ruta al archivo que se agregará al archivo zip
-    const filePath = 'public/uploads/1681156967555-SERVO_software.pdf';
-    
-    // Agregar el archivo al archivo zip
-    zip.file("uploads/1681156967555-SERVO_software.pdf", fs.readFileSync("./public/uploads/1681156967555-SERVO_software.pdf"), { name: "1681156967555-SERVO_software.pdf" });
-    
-
-    // Agrega cada archivo de la OT al archivo zip
-    /* ot.ot_pictures.forEach((picture) => {
-      const filePath = picture.url;
-      if (fs.existsSync(filePath)) {
-        zip.file(filePath, { name: picture.name });
-        console.log(`File added to zip: ${picture.name}`);
-        console.log(picture.url);
-      } else {
-        console.log("La ruta está mala");
-      }
-    }); */
-
-    // Envía el archivo zip al cliente
-    console.log(
-      `Sending zip file ${ot.ot_number}.zip with ${zip.pointer()} bytes`
+    // Crear un archivo ZIP y agregar los archivos que desees
+    const zip = new JSZip();
+    const fileContent = fs.readFileSync(
+      "public/uploads/1681261648791-E780537906F60482935T39.pdf"
     );
-    res.attachment(`${ot.ot_number}.zip`);
-    // Log cuando se agrega un archivo al zip
-    zip.on("entry", function (entry) {
-      console.log("Added file to zip:", entry.name);
-    });
+    zip.file("1681261648791-E780537906F60482935T39.pdf", fileContent);
 
-    // Log cuando se termina de construir el zip
-    zip.on("finish", function () {
-      console.log("Zip finished:", zip.pointer() + " total bytes");
+    // Generar el archivo ZIP y enviarlo al cliente
+    zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
+      res.set({
+        "Content-Type": "application/zip",
+        "Content-Disposition": "attachment; filename=myZipFile.zip",
+      });
+      res.send(content);
     });
-    zip.pipe(res);
-    zip.finalize();
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
