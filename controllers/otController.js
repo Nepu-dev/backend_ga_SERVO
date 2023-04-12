@@ -10,7 +10,7 @@ const obtenerOTs = async (req, res) => {
 const nuevaOT = async (req, res) => {
   const otPictures = req.files.map((file) => ({
     name: file.originalname,
-    url: `${req.protocol}://${req.get("host")}/uploads/${file.filename}`,
+    url: `public/uploads/${file.filename}`,
   }));
   const otData = {
     ...req.body,
@@ -102,11 +102,10 @@ const obtenerFiles = async (req, res) => {
 
     // Crear un archivo ZIP y agregar los archivos que desees
     const zip = new JSZip();
-    const fileContent = fs.readFileSync(
-      "public/uploads/1681261648791-E780537906F60482935T39.pdf"
-    );
-    zip.file("1681261648791-E780537906F60482935T39.pdf", fileContent);
-
+    ot.ot_pictures.map( file => {
+      const fileContent = fs.readFileSync(file.url);
+      zip.file(file.name, fileContent);
+    })
     // Generar el archivo ZIP y enviarlo al cliente
     zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
       res.set({
