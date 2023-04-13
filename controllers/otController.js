@@ -4,14 +4,10 @@ import fs from "fs";
 import JSZip from "jszip";
 
 const obtenerOTs = async (req, res) => {
-  const ots = await OT.find({ ot_state: false });
+  const ots = await OT.find();
   res.json(ots);
 };
 
-const obtenerCheckOTs = async (req, res) => {
-  const ots = await OT.find({ ot_state: true });
-  res.json(ots);
-}
 
 const nuevaOT = async (req, res) => {
   const otPictures = req.files.map((file) => ({
@@ -130,4 +126,4 @@ const obtenerFiles = async (req, res) => {
   }
 };
 
-export { obtenerOTs, obtenerCheckOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles };
+export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles };

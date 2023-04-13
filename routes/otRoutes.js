@@ -7,7 +7,6 @@ import {
     editarOT,
     eliminarOT,
     obtenerFiles,
-    obtenerCheckOTs
 } from "../controllers/otController.js";
 import checkAuth from "../middleWare/checkAuth.js";
 import upload from "../config/multer.js";
@@ -19,7 +18,6 @@ router
     .get(checkAuth, obtenerOTs)
     .post(checkAuth, upload.array('ot_pictures'), nuevaOT)
 
-router.route('/checkedOTs').get(checkAuth, obtenerCheckOTs)
 router
     .route('/:id')
     .get(checkAuth, obtenerOT)
