@@ -4,9 +4,15 @@ import fs from "fs";
 import JSZip from "jszip";
 
 const obtenerOTs = async (req, res) => {
-  const ots = await OT.find();
+  const ots = await OT.find({ ot_state: false });
   res.json(ots);
 };
+
+const obtenerCheckOTs = async (req, res) => {
+  const ots = await OT.find({ ot_state: true });
+  res.json(ots);
+}
+
 const nuevaOT = async (req, res) => {
   const otPictures = req.files.map((file) => ({
     name: file.originalname,
@@ -64,8 +70,12 @@ const editarOT = async (req, res) => {
   ot.factura_number = req.body.factura_number || ot.factura_number;
   ot.factura_Date = req.body.factura_Date || ot.factura_Date;
   ot.observaciones = req.body.observaciones || ot.observaciones;
-  ot.ot_pictures = req.body.ot_pictures || ot.ot_pictures;
   ot.ot_state = req.body.ot_state || ot.ot_state;
+  if (req.files) {
+    req.files.forEach(file => {
+      ot.ot_pictures.push(file);
+    });
+  }
 
   try {
     const otAlmacenado = await ot.save();
@@ -120,4 +130,4 @@ const obtenerFiles = async (req, res) => {
   }
 };
 
-export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles };
+export { obtenerOTs, obtenerCheckOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles };

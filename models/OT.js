@@ -5,7 +5,6 @@ const OtSchema = mongoose.Schema({
         type: Number,
         required: true,
         trim: true,
-        unique: true
     },
     om_number: {
         type: Number,
@@ -79,7 +78,7 @@ const OtSchema = mongoose.Schema({
     ],
     ot_state: {
         type: Boolean,
-        default: true
+        default: false
     }
 }, {
     timestamps: true
