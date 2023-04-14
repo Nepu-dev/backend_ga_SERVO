@@ -49,6 +49,11 @@ const editarOT = async (req, res) => {
     return res.status(404).json({ msg: error.message });
   }
 
+  const otPictures = req.files.map((file) => ({
+    name: file.originalname,
+    url: `public/uploads/${file.filename}`,
+  }));
+
   ot.ot_number = req.body.ot_number || ot.ot_number;
   ot.om_number = req.body.om_number || ot.om_number;
   ot.init_date = req.body.init_date || ot.init_date;
@@ -67,11 +72,7 @@ const editarOT = async (req, res) => {
   ot.factura_Date = req.body.factura_Date || ot.factura_Date;
   ot.observaciones = req.body.observaciones || ot.observaciones;
   ot.ot_state = req.body.ot_state || ot.ot_state;
-  if (req.files) {
-    req.files.forEach(file => {
-      ot.ot_pictures.push(file);
-    });
-  }
+  ot.ot_pictures = ot.ot_pictures.concat(otPictures);
 
   try {
     const otAlmacenado = await ot.save();
