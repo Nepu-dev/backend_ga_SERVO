@@ -42,11 +42,23 @@ const OtSchema = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    gd_number_client: {
+        type: Number,
+        trim: true
+    },
+    gd_Date_client: {
+        type: Date,
+        default: Date.now()
+    },
     gd_number: {
         type: Number,
         trim: true
     },
     gd_Date: {
+        type: Date,
+        default: Date.now()
+    },
+    ep_Date : {
         type: Date,
         default: Date.now()
     },

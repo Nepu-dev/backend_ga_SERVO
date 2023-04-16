@@ -56,7 +56,7 @@ const editarOT = async (req, res) => {
 
   ot.ot_number = req.body.ot_number || ot.ot_number;
   ot.om_number = req.body.om_number || ot.om_number;
-  ot.init_date = req.body.init_date || ot.init_date;
+  ot.init_Date = req.body.init_Date || ot.init_Date;
   ot.end_Date = req.body.end_Date || ot.end_Date;
   ot.ot_Description = req.body.ot_Description || ot.ot_Description;
   ot.value = req.body.value || ot.value;
@@ -64,8 +64,11 @@ const editarOT = async (req, res) => {
   ot.aviso = req.body.aviso || ot.aviso;
   ot.oc_number = req.body.oc_number || ot.oc_number;
   ot.oc_Date = req.body.oc_Date || ot.oc_Date;
+  ot.gd_number_client = req.body.gd_number_client || ot.gd_number_client;
+  ot.gd_Date_client = req.body.gd_Date_client || ot.gd_Date_client;
   ot.gd_number = req.body.gd_number || ot.gd_number;
   ot.gd_Date = req.body.gd_Date || ot.gd_Date;
+  ot.ep_Date = req.body.ep_Date || ot.ep_Date;
   ot.HES = req.body.HES || ot.HES;
   ot.HES_Date = req.body.HES_Date || ot.HES_Date;
   ot.factura_number = req.body.factura_number || ot.factura_number;
