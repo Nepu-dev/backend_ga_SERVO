@@ -130,4 +130,32 @@ const obtenerFiles = async (req, res) => {
   }
 };
 
-export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles };
+const mostrarFiles = async (req, res) => {
+  try {
+    const ot = await OT.findById(req.params.id);
+    if (!ot) {
+      return res.status(404).json({ message: "OT not found" });
+    }
+
+    const pictures = ot.ot_pictures.map((p) => p.url);
+    if (!pictures.length) {
+      return res.status(404).json({ message: "Pictures not found" });
+    }
+
+    let fileData = null;
+    pictures.forEach((url) => {
+      const filePath = url;
+      const data = fs.readFileSync(filePath);
+      fileData = data;
+    });
+
+    res.contentType("application/pdf");
+    console.log(fileData);
+    res.send(fileData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles, mostrarFiles };
