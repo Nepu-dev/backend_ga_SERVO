@@ -26,7 +26,7 @@ router
     .delete(checkAuth, eliminarOT);
 
 router.get('/files/:id', checkAuth, obtenerFiles);
-router.get('/file/:id', checkAuth, mostrarFiles);
+router.get('/file/:id/:index', checkAuth, mostrarFiles);
 /* router.post('/agregar-file/:id', checkAuth, agregarIMG);
 router.post('/eliminar-file/:id', checkAuth, eliminarIMG); */
 

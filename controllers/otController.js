@@ -131,6 +131,8 @@ const obtenerFiles = async (req, res) => {
 };
 
 const mostrarFiles = async (req, res) => {
+  const index = req.params.index;
+  console.log(req.params);
   try {
     const ot = await OT.findById(req.params.id);
     if (!ot) {
@@ -143,14 +145,15 @@ const mostrarFiles = async (req, res) => {
     }
 
     let fileData = null;
-    pictures.forEach((url) => {
+    pictures.forEach((url, i) => {
       const filePath = url;
       const data = fs.readFileSync(filePath);
-      fileData = data;
+      if (i == index) {
+        fileData = data;
+      }
     });
 
     res.contentType("application/pdf");
-    console.log(fileData);
     res.send(fileData);
   } catch (err) {
     console.error(err);
