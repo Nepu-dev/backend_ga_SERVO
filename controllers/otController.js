@@ -95,6 +95,9 @@ const eliminarOT = async (req, res) => {
   }
 
   try {
+    ot.ot_pictures.map( file => {
+      fs.unlinkSync(file.url);
+    });
     await ot.deleteOne();
     res.json({ msg: "OT Eliminada" });
   } catch (error) {
@@ -132,7 +135,6 @@ const obtenerFiles = async (req, res) => {
 
 const mostrarFiles = async (req, res) => {
   const index = req.params.index;
-  console.log(req.params);
   try {
     const ot = await OT.findById(req.params.id);
     if (!ot) {
@@ -161,4 +163,33 @@ const mostrarFiles = async (req, res) => {
   }
 }
 
-export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles, mostrarFiles };
+const eliminarFile = async (req, res) => {
+  const index = req.params.index;
+  try {
+    const ot = await OT.findById(req.params.id);
+    if (!ot) {
+      return res.status(404).json({ message: "OT not found" });
+    }
+
+    const pictures = ot.ot_pictures.map((p) => p.url);
+    if (!pictures.length) {
+      return res.status(404).json({ message: "Picture not found" });
+    }
+
+    pictures.forEach((url, i) => {
+      const filePath = url;
+      if (i == index) {
+        fs.unlinkSync(filePath);
+        ot.ot_pictures.splice(i, 1);
+      };
+    });
+    await ot.save();
+
+    res.json({ msg: "PDF Eliminado" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles, mostrarFiles, eliminarFile };

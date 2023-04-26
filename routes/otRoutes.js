@@ -7,7 +7,8 @@ import {
     editarOT,
     eliminarOT,
     obtenerFiles,
-    mostrarFiles
+    mostrarFiles,
+    eliminarFile
 } from "../controllers/otController.js";
 import checkAuth from "../middleWare/checkAuth.js";
 import upload from "../config/multer.js";
@@ -27,6 +28,7 @@ router
 
 router.get('/files/:id', checkAuth, obtenerFiles);
 router.get('/file/:id/:index', checkAuth, mostrarFiles);
+router.delete('/file/:id/:index', checkAuth, eliminarFile);
 /* router.post('/agregar-file/:id', checkAuth, agregarIMG);
 router.post('/eliminar-file/:id', checkAuth, eliminarIMG); */
 
