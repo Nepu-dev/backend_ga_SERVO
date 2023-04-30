@@ -58,6 +58,7 @@ const editarOT = async (req, res) => {
   ot.om_number = req.body.om_number || ot.om_number;
   ot.init_Date = req.body.init_Date || ot.init_Date;
   ot.end_Date = req.body.end_Date || ot.end_Date;
+  ot.ot_client = req.body.ot_client || ot.ot_client;
   ot.ot_Description = req.body.ot_Description || ot.ot_Description;
   ot.value = req.body.value || ot.value;
   ot.solped = req.body.solped || ot.solped;

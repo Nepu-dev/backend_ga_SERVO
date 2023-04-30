@@ -18,6 +18,10 @@ const OtSchema = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    ot_client: {
+        type: String,
+        trim: true
+    },
     ot_Description: {
         type: String,
         trim: true
