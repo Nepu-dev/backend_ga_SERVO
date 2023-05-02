@@ -14,19 +14,21 @@ dotenv.config();
 connectDB();
 
 //Configurar CORS
-/* const whiteList = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
+const whiteList = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
 
 const corsOptions = {
-    origin: function (origin, callback){
-        if (whiteList.includes(origin || origin === 'http://localhost:4000/uploads')) {
-            callback(null, true);
-        } else {
-            callback(new Error("Error de Cors"));
-        }
-    }
-} */
-
-app.use(cors());
+    origin: function (origin, callback) {
+      if (whiteList.includes(origin)) {
+        // Puede consultar la API
+        callback(null, true);
+      } else {
+        // No esta permitido
+        callback(new Error("Error de Cors"));
+      }
+    },
+  };
+  
+app.use(cors(corsOptions));
 app.use('/uploads', express.static('public/uploads'));
 
 
