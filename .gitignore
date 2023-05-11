@@ -105,3 +105,6 @@ dist
 
 /public/uploads/*.pdf
 !/public/uploads/.keep
+
+Dockerfile
+.dockerignore

@@ -12,6 +12,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  fileFilter: function(req, file, cb) {
+    const ext = path.extname(file.originalname);
+    if (ext !== '.pdf') {
+      return cb(new Error('Solo se permiten archivos en formato .PDF'));
+    }
+    cb(null, true);
+  }
 });
 
 export default upload;
