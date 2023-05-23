@@ -1,7 +1,6 @@
-import OT from "../models/OT.js";
-import path from "path";
-import fs from "fs";
-import JSZip from "jszip";
+const OT = require("../models/OT.js");
+const fs = require("fs");
+const JSZip = require("jszip");
 
 const obtenerOTs = async (req, res) => {
   const ots = await OT.find();
@@ -193,4 +192,4 @@ const eliminarFile = async (req, res) => {
   }
 }
 
-export { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles, mostrarFiles, eliminarFile };
+module.exports = { obtenerOTs, nuevaOT, obtenerOT, editarOT, eliminarOT, obtenerFiles, mostrarFiles, eliminarFile };

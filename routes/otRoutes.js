@@ -1,6 +1,6 @@
-import express from "express";
+const express = require("express");
 
-import {
+const {
     obtenerOTs,
     nuevaOT,
     obtenerOT,
@@ -9,9 +9,9 @@ import {
     obtenerFiles,
     mostrarFiles,
     eliminarFile
-} from "../controllers/otController.js";
-import checkAuth from "../middleWare/checkAuth.js";
-import upload from "../config/multer.js";
+} = require("../controllers/otController.js");
+const checkAuth = require("../middleWare/checkAuth.js");
+const upload = require("../config/multer.js");
 
 const router = express.Router();
 
@@ -34,4 +34,4 @@ router.post('/eliminar-file/:id', checkAuth, eliminarIMG); */
 
 
 
-export default router;
+module.exports = router;

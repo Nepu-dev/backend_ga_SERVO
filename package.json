@@ -2,7 +2,7 @@
   "name": "backend_ga_servo",
   "version": "1.0.0",
   "description": "Backend para software de gestor de archivos para SERVO.",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,6 +1,6 @@
-import User from "../models/Usuario.js";
-import generarId from "../helpers/generarId.js";
-import generarJWT from "../helpers/generarJWT.js";
+const User = require("../models/Usuario.js");
+const generarId = require("../helpers/generarId.js");
+const generarJWT = require("../helpers/generarJWT.js");
 
 const register = async (req, res) => {
     //Evitar duplicados
@@ -102,4 +102,4 @@ const perfil = async (req, res) => {
     res.json(usuario);
 }
 
-export { register, auth, forgotPassword, comprobarToken, nuevoPassword, perfil };
+module.exports = { register, auth, forgotPassword, comprobarToken, nuevoPassword, perfil };

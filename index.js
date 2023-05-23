@@ -1,10 +1,9 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import path from "path";
-import connectDB from "./config/db.js";
-import userRoutes from './routes/userRoutes.js'
-import otRoutes from './routes/otRoutes.js'
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const connectDB = require("./config/db.js");
+const userRoutes = require('./routes/userRoutes.js');
+const otRoutes = require('./routes/otRoutes.js');
 
 const app = express();
 app.use(express.json());

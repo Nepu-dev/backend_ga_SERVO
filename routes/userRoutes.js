@@ -1,7 +1,7 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import { register, auth, forgotPassword, comprobarToken, nuevoPassword, perfil } from "../controllers/userController.js";
-import checkAuth from "../middleWare/checkAuth.js";
+const { register, auth, forgotPassword, comprobarToken, nuevoPassword, perfil } = require("../controllers/userController.js");
+const checkAuth = require("../middleWare/checkAuth.js");
 
 //Autenticacion, registro y confirmacion de usuario.
 router.post("/", register); //Crea un nuevo usuario.
@@ -12,4 +12,4 @@ router.post('/olvide-password/:token', nuevoPassword);
 
 router.get("/perfil", checkAuth, perfil);
 
-export default router;
+module.exports = router;

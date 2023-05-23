@@ -5,4 +5,4 @@ const generarId = () => {
     return random + fecha;
   }
 
-  export default generarId;
+  module.exports = generarId;

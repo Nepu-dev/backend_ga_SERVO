@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const OtSchema = mongoose.Schema({
     ot_number: {
@@ -101,4 +101,4 @@ const OtSchema = mongoose.Schema({
 });
 
 const OT = mongoose.model("OT", OtSchema);
-export default OT;
+module.exports = OT;

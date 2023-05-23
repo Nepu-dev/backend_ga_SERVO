@@ -108,3 +108,4 @@ dist
 
 Dockerfile
 .dockerignore
+.fake
