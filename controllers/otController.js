@@ -96,7 +96,9 @@ const eliminarOT = async (req, res) => {
 
   try {
     ot.ot_pictures.map( file => {
-      fs.unlinkSync(file.url);
+      if (fs.existsSync(file.url)) {
+        fs.unlinkSync(file.url); 
+      }
     });
     await ot.deleteOne();
     res.json({ msg: "OT Eliminada" });
@@ -179,8 +181,10 @@ const eliminarFile = async (req, res) => {
     pictures.forEach((url, i) => {
       const filePath = url;
       if (i == index) {
-        fs.unlinkSync(filePath);
-        ot.ot_pictures.splice(i, 1);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+          ot.ot_pictures.splice(i, 1);
+        };
       };
     });
     await ot.save();
